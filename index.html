@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+	
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.4/angular.js"></script>
+	<link rel="stylesheet" type="text/css" href="main.css">
+	<title>Inspirational Quotes</title>
+</head>
+<body>
+	<div class="container" ng-controller="mainController">
+
+		<h1 class="mainHeading">Inspirational Quotes</h1>
+		<div>
+			
+			<input type='text' size="30"  placeholder="Author" ng-model="author">
+			<input size="60" placeholder="Quote" ng-model="quote">
+			<input size="20" placeholder = "Rate 1-5" ng-model="rating">
+			<button ng-click="submitQuote()">Submit</button><br>
+			
+		</div>
+		<div>
+			<button ng-click='getRandomQuote()'>Find a Random Quote!</button>
+			<form ng-show="randomQuote">{{randomQuote.quote}}</form>
+		</div>
+		
+
+		<div ng-repeat="(quoteIndex, quote) in quotes | filter:query | orderBy:'-rating'">
+				<p>"{{quote.quote}}"</p>
+				<a href="#">-{{quote.author}}</a><br>
+				<!-- <p>{{quote.rating}}</p> -->
+				<!-- <div ng-repeat="star in starsArray" class="starz">
+					{{star}}
+				</div> -->
+				<div class="starDefault">
+				<span ng-repeat="star in quote.stars" ng-class="{rated: star.rated}" ng-click="rateIt($index, quoteIndex)">&#9733;</span>
+				</div>
+				<input ng-model="quote.rating" type="text">
+
+				<button ng-click="removeQuote($index)">Delete</button>
+		</div>
+
+			<script type="text/javascript" src="main.js"></script>
+
+	</div>
+	
+</body>
+
+</html>
+
+<!-- [ ★ ] star solid [ number: &#9733;]
+[ ☆ ] star outline [ number: &#9734;] -->
+
